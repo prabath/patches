@@ -1,0 +1,18 @@
+var stepUpIPList = ['192.168.1.1'];
+var allowIPList = ['192.168.1.2','192.168.1.1'];
+function onLoginRequest(context) {
+  executeStep(1, {
+onSuccess: function (context) {
+ var userip = context.request.ip;
+ Log.info("Incoming IP Address"+userip);
+ if (allowIPList.indexOf(userip) < 0) {
+sendError('http://carpooling.com:8080/oidc-web-app-pickup/', {
+}
+  );
+ }
+ if (stepUpIPList.indexOf(userip) > -1) {
+executeStep(2);
+ }
+}
+  }
+);
